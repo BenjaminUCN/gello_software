@@ -83,6 +83,8 @@ class RobotEnv:
         for img_key in ["base_rgb", "wrist_rgb"]:
             if img_key not in observations:
                 observations[img_key] = None
+        assert "state" in robot_obs
+        observations["state"] = robot_obs["state"]
         return observations
 
 

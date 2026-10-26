@@ -14,7 +14,7 @@ def get_device_ids() -> List[str]:
     devices = ctx.query_devices()
     device_ids = []
     for dev in devices:
-        dev.hardware_reset()
+        #dev.hardware_reset()
         device_ids.append(dev.get_info(rs.camera_info.serial_number))
     time.sleep(2)
     return device_ids
