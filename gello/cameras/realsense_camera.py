@@ -24,7 +24,8 @@ class RealSenseCamera(CameraDriver):
     def __repr__(self) -> str:
         return f"RealSenseCamera(device_id={self._device_id})"
 
-    def __init__(self, device_id: Optional[str] = None, flip: bool = False):
+    def __init__(self, device_id: Optional[str] = None, flip: bool = False, width: int = 640, height: int = 480):
+        """width x height: color y profundidad (p. ej. 640x360 en 16:9, como la sim; 640x480 recorta los lados)."""
         import pyrealsense2 as rs
 
         self._device_id = device_id
@@ -42,8 +43,8 @@ class RealSenseCamera(CameraDriver):
             config = rs.config()
             config.enable_device(device_id)
 
-        config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)
-        config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)
+        config.enable_stream(rs.stream.depth, width, height, rs.format.z16, 30)
+        config.enable_stream(rs.stream.color, width, height, rs.format.bgr8, 30)
         self._pipeline.start(config)
         self._flip = flip
 
